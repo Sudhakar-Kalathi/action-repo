@@ -1,0 +1,17 @@
+name: Send Webhook to Techstax Server
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  send-webhook:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send webhook
+        run: |
+          curl -X POST \
+          -H "Content-Type: application/json" \
+          -H "X-GitHub-Event: ${{ github.event_name }}" \
+          -d '${{ toJson(github.event) }}' \
+          https://jovanni-superbeloved-overfancifully.ngrok-free.dev/webhook
